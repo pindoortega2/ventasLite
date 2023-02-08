@@ -13,7 +13,7 @@
           <table class="table table-bordered table striped mt-1">
             <thead class="text-white" style="background: #3B3F5C">
               <tr>
-                <th class="table-th text-white text-center">FOLIO</th>
+                <th class="table-th text-white text-center">#</th>
                 <th class="table-th text-white text-center">PRODUCTO</th>
                 <th class="table-th text-white text-center">PRECIO</th>
                 <th class="table-th text-white text-center">CANT</th>
@@ -21,9 +21,9 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($details as $d)
+              @foreach($details as $key => $d)
               <tr>
-                <td class='text-center'><h6>{{$d->id}}</h6></td>
+                <td class='text-center'><h6>{{$key + 1}}</h6></td>
                 <td class='text-center'><h6>{{$d->product}}</h6></td>
                 <td class='text-center'><h6>{{number_format($d->price,2)}}</h6></td>
                 <td class='text-center'><h6>{{number_format($d->quantity,0)}}</h6></td>
@@ -36,9 +36,11 @@
               <tr>
                 <td colspan="3"><h5 class="text-center font-weight-bold">TOTALES</h5></td>
                 <td><h5 class="text-center">{{$countDetails}}</h5></td>
-                <td><h5 class="text-center">
-                  ${{number_format($sumDetails,2)}}
-                </h5></td>
+                <td>
+                  <h5 class="text-center">
+                    ${{number_format($sumDetails,2)}}
+                  </h5>
+                </td>
               </tr>
             </tfoot>
           </table>         

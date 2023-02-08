@@ -65,7 +65,7 @@
                         <table class="table table-bordered table-striped mt-1">
                             <thead class="text-white" style="background: #3B3F5C">
                                 <tr>
-                                    <th class="table-th text-center text-white">FOLIO</th>
+                                    <th class="table-th text-center text-white">#</th>
                                     <th class="table-th text-center text-white">TOTAL</th>
                                     <th class="table-th text-center text-white">ITEMS</th>
                                     <th class="table-th text-center text-white">FECHA</th>
@@ -77,9 +77,9 @@
                                 <tr><td colspan="4"><h6 class="text-center">No hay ventas en la fecha seleccionada</h6></td></tr>
                                 @endif
 
-                                @foreach($sales as $row)
+                                @foreach($sales as $key => $row)
                                 <tr>
-                                    <td class="text-center"><h6>{{$row->id}}</h6></td>
+                                    <td class="text-center"><h6>{{$key + 1}}</h6></td>
                                     <td class="text-center"><h6>${{number_format($row->total,2)}}</h6></td>
                                     <td class="text-center"><h6>{{$row->items}}</h6></td>
                                     <td class="text-center"><h6>{{$row->created_at}}</h6></td>
