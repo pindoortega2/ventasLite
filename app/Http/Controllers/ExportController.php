@@ -34,7 +34,7 @@ class ExportController extends Controller {
             ->get();
         } else {
             $data = Sale::join('users as u','u.id','sales.user_id', 'products as p', 'p.id', 'sale_details.product_id')
-            ->select('sales.*','u.name as user', 'products.*', 'p.name as prod')
+            ->select('sales.*','u.name as user', 'products.*', 'p.name as producc')
             ->whereBetween('sales.created_at', [$from, $to])
             ->where('user_id', $userId)->where('product_id', 'p.id')
             ->get();
