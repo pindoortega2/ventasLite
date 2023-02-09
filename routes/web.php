@@ -35,7 +35,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     //Rutas protegidas 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('categories', CategoriesController::class)->middleware('role:Admin');
+    Route::get('categories', CategoriesController::class)->middleware('role:Admin'); //solo los administradores tendran accesos a categorias.
     Route::get('products', ProductsController::class);
 
     Route::group(['middleware' => ['role:Admin']], function () {
