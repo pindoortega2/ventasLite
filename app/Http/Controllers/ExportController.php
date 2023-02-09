@@ -53,4 +53,10 @@ class ExportController extends Controller {
         $pdf = PDF::loadView('pdf.prueba', compact('datos'));
     }
 
+    public function reporteExcel($userId, $reportType, $dateFrom =null, $dateTo =null) {
+        $reportName = 'Reporte de Ventas_' . uniqid() . '.xlsx';
+        
+        return Excel::download(new SalesExport($userId, $reportType, $dateFrom, $dateTo),$reportName );
+    }
+
 }

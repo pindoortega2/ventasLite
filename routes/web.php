@@ -31,24 +31,35 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('categories', CategoriesController::class);
-Route::get('products', ProductsController::class);
-Route::get('coins', CoinsController::class);
-Route::get('pos', PosController::class);
-Route::get('roles', RolesController::class);
-Route::get('permisos', PermisosController::class);
-Route::get('asignar', AsignarController::class);
-Route::get('users', UsersController::class);
-Route::get('cashout', CashoutController::class);
-Route::get('reports', ReportsController::class);
+//middleware me permite proteger la ruta en caso de que el usuario no este logeado
+Route::middleware(['auth'])->group(function () {
+    //Rutas protegidas 
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('categories', CategoriesController::class)->middleware('role:Admin');
+    Route::get('products', ProductsController::class);
 
-//reportes PDF
-Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
-Route::get('report/pdf/{user}/{type}', [ExportController::class, 'reportPDF']);
-Route::get('report/pdf', [ExportController::class, 'pdfeee']);
+    Route::group(['middleware' => ['role:Admin']], function () {
+        Route::get('coins', CoinsController::class);
+        Route::get('pos', PosController::class);
+        Route::get('roles', RolesController::class);
+        Route::get('permisos', PermisosController::class);
+        Route::get('asignar', AsignarController::class);
+    });
+    
+    Route::get('users', UsersController::class);
+    Route::get('cashout', CashoutController::class);
+    Route::get('reports', ReportsController::class);
+
+    //reportes PDF
+    Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
+    Route::get('report/pdf/{user}/{type}', [ExportController::class, 'reportPDF']);
+    Route::get('report/pdf', [ExportController::class, 'pdfeee']);
 
 
-//reportes EXCEL
-Route::get('report/excel/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reporteExcel']);
-Route::get('report/excel/{user}/{type}', [ExportController::class, 'reporteExcel']);
+    //reportes EXCEL
+    Route::get('report/excel/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reporteExcel']);
+    Route::get('report/excel/{user}/{type}', [ExportController::class, 'reporteExcel']);
+
+});
+
+
